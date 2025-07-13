@@ -1,41 +1,24 @@
-# GradeAverage.py
+# GradeAverageApp.py
+
 import streamlit as st
 
-# Configure the Streamlit app
-st.set_page_config(page_title="Grade Average Checker", page_icon="📘", layout="centered")
+st.title("Grade Average Calculator")
 
-# App title
-st.title("📘 Grade Average Calculator")
+st.write("Enter 5 test scores (0 to 100):")
 
-# Tabs for homepage and calculator
-tab1, tab2 = st.tabs(["🏠 Home", "📊 Grade Checker"])
+# Input fields
+score1 = st.number_input("Test Score 1", min_value=0, max_value=100)
+score2 = st.number_input("Test Score 2", min_value=0, max_value=100)
+score3 = st.number_input("Test Score 3", min_value=0, max_value=100)
+score4 = st.number_input("Test Score 4", min_value=0, max_value=100)
+score5 = st.number_input("Test Score 5", min_value=0, max_value=100)
 
-# Home Tab
-with tab1:
-    st.header("🏠 Welcome!")
-    st.write("""
-    This simple app allows you to:
-    - Enter 5 test scores
-    - Calculate the average
-    - Determine if the student has passed or failed
-    
-    **Pass Criteria:** Average score ≥ 50  
-    Use the **Grade Checker** tab to get started.
-    """)
+if st.button("Calculate Average"):
+    scores = [score1, score2, score3, score4, score5]
+    average = sum(scores) / len(scores)
+    result = "Pass" if average >= 50 else "Fail"
 
-# Grade Checker Tab
-with tab2:
-    st.header("📊 Enter Your Test Scores")
-    
-    score1 = st.number_input("Test Score 1", min_value=0.0, max_value=100.0, step=1.0)
-    score2 = st.number_input("Test Score 2", min_value=0.0, max_value=100.0, step=1.0)
-    score3 = st.number_input("Test Score 3", min_value=0.0, max_value=100.0, step=1.0)
-    score4 = st.number_input("Test Score 4", min_value=0.0, max_value=100.0, step=1.0)
-    score5 = st.number_input("Test Score 5", min_value=0.0, max_value=100.0, step=1.0)
-
-    if st.button("Calculate Average"):
-        average = (score1 + score2 + score3 + score4 + score5) / 5
-        result = "✅ Pass" if average >= 50 else "❌ Fail"
-        
-        st.success(f"Average Score: {average:.2f}")
-        st.info(f"Result: {result}")
+    st.subheader("Summary Report")
+    st.write(f"Scores: {scores}")
+    st.write(f"Average: {average:.2f}")
+    st.write(f"Result: **{result}**")
